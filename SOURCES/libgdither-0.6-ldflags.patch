@@ -1,0 +1,20 @@
+diff -up libgdither-0.6/Makefile.ldflags libgdither-0.6/Makefile
+--- libgdither-0.6/Makefile.ldflags	2018-10-13 15:01:35.228468070 -0400
++++ libgdither-0.6/Makefile	2018-10-13 15:07:29.070561578 -0400
+@@ -4,13 +4,13 @@ CFLAGS = $(INIT_CFLAGS) -I. -ffast-math
+ 
+ TARDIR = libgdither-$(VERSION)
+ 
+-all: libgdither.so
++all: libgdither.so.1.0
+ 
+ gdither.o: gdither.c gdither.h gdither_types_internal.h
+ 	$(CC) $(CFLAGS) -c gdither.c
+ 
+-libgdither.so: gdither.o
+-	$(CC) -shared gdither.o -Wl,-soname,libgdither.so.1 -o libgdither.so.1.0
++libgdither.so.1.0: gdither.o
++	$(CC) $(LDFLAGS) -shared gdither.o -Wl,-soname,libgdither.so.1 -o libgdither.so.1.0
+ 
+ libgdither.pc: libgdither.pc.in Makefile
+ 	sed -e 's|@VERSION@|$(VERSION)|' -e 's|@PREFIX@|$(PREFIX)|' \
